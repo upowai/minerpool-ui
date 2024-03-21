@@ -31,7 +31,7 @@ const Wallet = () => {
     setError("");
     try {
       const response = await axios.get(
-        `${config.pooApi}/get_balance?wallet_address=${walletAddress}`,
+        `${config.pooApi}/get_balance/?wallet_address=${walletAddress}`,
         {
           headers: {
             "Content-Type": "application/json",
