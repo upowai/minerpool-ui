@@ -1,7 +1,7 @@
 const config = {
-  ip: "99999999.9999990",
-  port: "57895",
-  pooApi: "http://127.0.0.1:8003",
+  ip: "152.53.1.206",
+  port: "5501",
+  pooApi: "http://152.53.1.206:8003",
 };
 
 export default config;
