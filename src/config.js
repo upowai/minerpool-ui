@@ -1,5 +1,5 @@
 const config = {
-  ip: "152.53.1.206",
+  ip: "192.99.37.27",
   port: "5501",
   pooApi: "https://pool.upow.network",
 };
