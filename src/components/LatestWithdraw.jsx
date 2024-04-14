@@ -121,14 +121,18 @@ const LatestWithdraw = () => {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {transactions.map((transaction, index) => {
-                    // Ensure the timestamp is treated as UTC by adding 'Z' if it's not already included
-                    const utcTimestamp = transaction.timestamp.endsWith("Z")
-                      ? transaction.timestamp
-                      : `${transaction.timestamp}Z`;
+                    let dateLocal = "No date";
+                    let dateUTC = "No date";
 
-                    // Create a new Date object and format it
-                    const dateLocal = new Date(utcTimestamp).toLocaleString();
-                    const dateUTC = new Date(utcTimestamp).toUTCString();
+                    if (transaction.timestamp) {
+                      const utcTimestamp = transaction.timestamp.endsWith("Z")
+                        ? transaction.timestamp
+                        : `${transaction.timestamp}Z`;
+
+                      dateLocal = new Date(utcTimestamp).toLocaleString();
+                      dateUTC = new Date(utcTimestamp).toUTCString();
+                    }
+
                     return (
                       <tr key={index}>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -138,7 +142,7 @@ const LatestWithdraw = () => {
                           Amount: {transaction.amount}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          Date: {dateLocal} (local) / {dateUTC} (Utc)
+                          Date: {dateLocal} (local) / {dateUTC} (UTC)
                         </td>
                       </tr>
                     );
