@@ -128,6 +128,12 @@ const LatestWithdraw = () => {
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         Amount: {transaction.amount}
                       </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        Date:{" "}
+                        {transaction.timestamp
+                          ? transaction.timestamp
+                          : "No Date Available"}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
