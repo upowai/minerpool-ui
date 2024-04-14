@@ -120,22 +120,29 @@ const LatestWithdraw = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {transactions.map((transaction, index) => (
-                    <tr key={index}>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        Hash: {transaction.hash}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        Amount: {transaction.amount}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        Date:{" "}
-                        {transaction.timestamp
-                          ? transaction.timestamp
-                          : "No Date Available"}
-                      </td>
-                    </tr>
-                  ))}
+                  {transactions.map((transaction, index) => {
+                    // Ensure the timestamp is treated as UTC by adding 'Z' if it's not already included
+                    const utcTimestamp = transaction.timestamp.endsWith("Z")
+                      ? transaction.timestamp
+                      : `${transaction.timestamp}Z`;
+
+                    // Create a new Date object and format it
+                    const dateLocal = new Date(utcTimestamp).toLocaleString();
+                    const dateUTC = new Date(utcTimestamp).toUTCString();
+                    return (
+                      <tr key={index}>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          Hash: {transaction.hash}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          Amount: {transaction.amount}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          Date: {dateLocal} (local) / {dateUTC} (Utc)
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
