@@ -1,7 +1,8 @@
 const config = {
-  ip: "192.99.37.27",
-  port: "5501",
-  pooApi: "https://pool.upow.network",
+  ip: "192.99.7.175",
+  port: "4403",
+  endpoint: "https://pooltti.upow.network",
+  pooApi: "https://pooltti.upow.network",
 };
 
 export default config;

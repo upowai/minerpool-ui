@@ -7,6 +7,8 @@ const GettingStarted = () => {
   const [ip, setIp] = useState(config.ip);
   const [includePort, setIncludePort] = useState(true);
   const [port, setPort] = useState(config.port);
+  const [endPoint, setEndPoint] = useState(config.endpoint);
+  const [device, setDevice] = useState(""); // New state for device
   const [command, setCommand] = useState("");
 
   const generateCommand = () => {
@@ -14,13 +16,15 @@ const GettingStarted = () => {
     if (walletAddress) cmd += ` --WALLET_ADDRESS "${walletAddress}"`;
     if (includeIp) cmd += ` --MINER_POOL_IP "${ip}"`;
     if (includePort) cmd += ` --MINER_POOL_PORT ${port}`;
+    if (endPoint) cmd += ` --ENDPOINT "${endPoint}"`;
+    if (device) cmd += ` --DEVICE "${device}"`; // Add DEVICE option
     setCommand(cmd);
   };
 
-  const handleCopy = async () => {
-    if (command) {
-      await navigator.clipboard.writeText(command);
-      alert("Command copied to clipboard!");
+  const handleCopy = async (text) => {
+    if (text) {
+      await navigator.clipboard.writeText(text);
+      alert("Copied to clipboard!");
     }
   };
 
@@ -30,6 +34,8 @@ const GettingStarted = () => {
     setIp(config.ip);
     setIncludePort(true);
     setPort(config.port);
+    setEndPoint(config.endpoint);
+    setDevice(""); // Reset device state
     setCommand("");
   };
 
@@ -116,6 +122,40 @@ const GettingStarted = () => {
           />
         )}
 
+        <div className="mb-5">
+          <label
+            htmlFor="endPoint"
+            className="block text-sm font-medium text-gray-700"
+          >
+            End Point
+          </label>
+          <input
+            type="text"
+            id="endPoint"
+            placeholder="End Point"
+            className="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
+            value={endPoint}
+            onChange={(e) => setEndPoint(e.target.value)}
+          />
+        </div>
+
+        <div className="mb-5">
+          <label
+            htmlFor="device"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Device
+          </label>
+          <input
+            type="text"
+            id="device"
+            placeholder="Device"
+            className="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
+            value={device}
+            onChange={(e) => setDevice(e.target.value)}
+          />
+        </div>
+
         <button
           className="btn btn-primary w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mb-4"
           onClick={generateCommand}
@@ -128,11 +168,11 @@ const GettingStarted = () => {
               className="textarea textarea-bordered w-full p-2 border-gray-300 rounded-md shadow-sm text-gray-700 mb-2"
               readOnly
               value={command}
-              onClick={handleCopy}
+              onClick={() => handleCopy(command)}
             />
             <button
               className="btn btn-secondary w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium bg-indigo-600 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-              onClick={handleCopy}
+              onClick={() => handleCopy(command)}
             >
               Copy Command
             </button>
