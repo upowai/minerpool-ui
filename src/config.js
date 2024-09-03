@@ -1,5 +1,5 @@
 const config = {
-  ip: "192.99.7.175",
+  ip: "16.16.99.33",
   port: "4403",
   endpoint: "https://pooltti.upow.network",
   pooApi: "https://pooltti.upow.network",
